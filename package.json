@@ -1,0 +1,17 @@
+{
+  "name": "awtsmoos web push",
+  "version": "0.1.0",
+  "description": "web push.",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+ 
+  "author": "Yackov Yitzchak Kaufer",
+  
+  "dependencies": {
+   
+    "web-push": "^3.2.2"
+  }
+
+}
