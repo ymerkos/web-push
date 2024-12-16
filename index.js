@@ -2,6 +2,7 @@
 // Import the web-push library
 const webPush = require("web-push");
 const http = require("http");
+var awts = require("./awtsmoosPush.js");
 var vapidKeys = {
 	"publicKey": "BMFDU3eBLj5pJKRz9lTkadYlfURJRHs0lEe8QB1aMY8yyoS5VhpB9w76b71hrykAxDwOZEFPMj5zglw6HB9uYDI",
 	"privateKey": "TkHTAHUVUFhsG2FLQbuocUtDKENtZ3Lv7OXn-grfxR8"
