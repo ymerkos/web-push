@@ -2,32 +2,27 @@
 // Import the web-push library
 const webPush = require("web-push");
 const http = require("http");
-
-// Ensure VAPID keys are set in the environment
-if (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
-  console.log(
-    "You must set the VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY environment variables. Here are some generated keys:"
-  );
-  const keys = webPush.generateVAPIDKeys();
-  console.log(`VAPID_PUBLIC_KEY: ${keys.publicKey}`);
-  console.log(`VAPID_PRIVATE_KEY: ${keys.privateKey}`);
-  process.exit(1);
+var vapidKeys = {
+	"publicKey": "BMFDU3eBLj5pJKRz9lTkadYlfURJRHs0lEe8QB1aMY8yyoS5VhpB9w76b71hrykAxDwOZEFPMj5zglw6HB9uYDI",
+	"privateKey": "TkHTAHUVUFhsG2FLQbuocUtDKENtZ3Lv7OXn-grfxR8"
 }
+var VAPID_PUBLIC_KEY = vapidKeys.publicKey;
+var VAPID_PRIVATE_KEY = vapidKeys.privateKey;
 
 // Configure VAPID details for web-push
 webPush.setVapidDetails(
-  "https://example.com/",
-  process.env.VAPID_PUBLIC_KEY,
-  process.env.VAPID_PRIVATE_KEY
+  "https://awtsmoos.com/",
+  VAPID_PUBLIC_KEY,
+  VAPID_PRIVATE_KEY
 );
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000
 
 const server = http.createServer((req, res) => {
   if (req.method === "GET" && req.url === "/vapidPublicKey") {
     // Return the VAPID public key
     res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end(process.env.VAPID_PUBLIC_KEY);
+    res.end(VAPID_PUBLIC_KEY);
   } else if (req.method === "POST" && req.url === "/register") {
     // Handle subscription registration (not stored in this example)
     res.writeHead(201);
