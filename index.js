@@ -19,6 +19,16 @@ webPush.setVapidDetails(
 const PORT = 3000
 
 const server = http.createServer((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    // Handle preflight requests
+    res.writeHead(200);
+    res.end();
+    return;
+  }
   if (req.method === "GET" && req.url === "/vapidPublicKey") {
     // Return the VAPID public key
     res.writeHead(200, { "Content-Type": "text/plain" });
