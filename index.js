@@ -2,20 +2,8 @@
 // Import the web-push library
 const webPush = require("web-push");
 const http = require("http");
-/var awts = require("./awtsmoosPush.js");
-var vapidKeys = {
-	"publicKey": "BMFDU3eBLj5pJKRz9lTkadYlfURJRHs0lEe8QB1aMY8yyoS5VhpB9w76b71hrykAxDwOZEFPMj5zglw6HB9uYDI",
-	"privateKey": process.env.vapidPrivate
-}
-var VAPID_PUBLIC_KEY = vapidKeys.publicKey;
-var VAPID_PRIVATE_KEY = vapidKeys.privateKey;
+//var awts = require("./awtsmoosPush.js");
 
-// Configure VAPID details for web-push
-webPush.setVapidDetails(
-  "https://awtsmoos.com/",
-  VAPID_PUBLIC_KEY,
-  VAPID_PRIVATE_KEY
-);
 
 const PORT = 3000
 
@@ -30,6 +18,22 @@ const server = http.createServer((req, res) => {
     res.end();
     return;
   }
+	var vapidKeys = {
+		"publicKey": "BMFDU3eBLj5pJKRz9lTkadYlfURJRHs0lEe8QB1aMY8yyoS5VhpB9w76b71hrykAxDwOZEFPMj5zglw6HB9uYDI",
+		"privateKey": process.env.vapidPrivate
+	}
+	var VAPID_PUBLIC_KEY = vapidKeys.publicKey;
+	var VAPID_PRIVATE_KEY = vapidKeys.privateKey;
+	try {
+		// Configure VAPID details for web-push
+		webPush.setVapidDetails(
+		"https://awtsmoos.com/",
+		VAPID_PUBLIC_KEY,
+		VAPID_PRIVATE_KEY
+	);
+	} catch(e) {
+		res.end("LOL had issue: " + e.stack);
+	}
   if (req.method === "GET" && req.url === "/vapidPublicKey") {
     // Return the VAPID public key
     res.writeHead(200, { "Content-Type": "text/plain" });
